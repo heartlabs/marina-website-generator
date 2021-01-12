@@ -3,7 +3,6 @@ package heartlabs.marina.website.generator;
 import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -11,11 +10,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class WebsiteGenerator {
 	private static final String THUMBNAIL_JPG = "thumbnail.jpg";
-	private static List<String> pageNames = Arrays.asList("index", "weddings", "lovestory", "contacts");
+	private static List<String> pageNames = Arrays.asList("index", "weddings", "lovestory", "about me", "contacts");
 	
 	public static void main(String[] args) throws IOException {
 		File templateFolder = new File("src/main/resources/heartlabs/marina/website/templates");
@@ -58,9 +56,13 @@ public class WebsiteGenerator {
 		String templateBaseName = page.baseName;
 		
 		System.out.println("Preparing page " + templateBaseName );
+		if (templateName.equals("about me.ftlh") || templateName.equals("contacts.ftlh")) {
+			page.about = true;
+		}
 		if (templateName.equals("index.ftlh")) {
 			page.hidden = true;
 			page.title = null;
+			page.carousel = true;
 		}
 		
 		File pageSourceImageFolder = new File(sourceImageFolder, templateBaseName);
@@ -86,6 +88,10 @@ public class WebsiteGenerator {
 	private static Page handleSubPage(File parentTargetDir, File subPageSourceDir) {
 		String subPageName = subPageSourceDir.getName();
 		File[] images = subPageSourceDir.listFiles();
+		
+		if (subPageName.contains("_")) {
+			subPageName = subPageName.split("_")[1];
+		}
 		
 		File subPageTargetDir = new File(parentTargetDir, subPageName);
 		File thumbnailTargetFile = new File(subPageTargetDir, THUMBNAIL_JPG);

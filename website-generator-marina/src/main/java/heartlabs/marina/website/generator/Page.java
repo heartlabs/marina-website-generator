@@ -12,6 +12,8 @@ public class Page {
 	public List<String> images;
 	public List<Page> subPages;
 	public boolean hidden;
+	public boolean about;
+	public boolean carousel;
 	public String rootDirPath = "";
 	
 	public Page(File targetFolder, String templateName) {
@@ -50,6 +52,12 @@ public class Page {
 	}
 	public boolean isHidden() {
 		return hidden;
+	}
+	public boolean isCarousel() {
+		return carousel;
+	}
+	public boolean isAbout() {
+		return about;
 	}
 	public String getRootDir() {
 		return rootDirPath;

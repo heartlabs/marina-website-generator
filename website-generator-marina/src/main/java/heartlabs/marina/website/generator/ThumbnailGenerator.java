@@ -79,6 +79,11 @@ public class ThumbnailGenerator {
 	public static void createThumbnail(File in, File out) {
 		try {
 			BufferedImage img = ImageIO.read(in);
+			
+			if (img == null) {
+				throw new IllegalArgumentException("File is no image: " + in.getAbsolutePath());
+			}
+			
 			img = scale(img, 512, 512);
 			write(img, out);
 		} catch (IOException e) {

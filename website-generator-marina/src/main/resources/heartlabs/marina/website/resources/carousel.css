@@ -1,0 +1,192 @@
+/* Slideshow container */
+.slideshow-container {
+  width: 100%;
+  max-height: 100vh;
+  position: relative;
+  margin: auto;
+  overflow: hidden;
+  scroll-snap-type: y mandatory;
+}
+
+.mySlides {
+  position: relative;
+}
+
+.mySlides + .mySlides {
+  display: none;
+  position: absolute;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: #777;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  border: none;
+  opacity: 0.5;
+  z-index: 3;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev {
+  left: 0;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+  color: #bbb;
+  opacity: 0.7;
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+.dots {
+	margin: 20px;
+}
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  animation-fill-mode: both;
+  position: relative;
+  z-index: 0;
+  top: 0;
+  opacity: 0;
+}
+
+@keyframes fade-in {
+  from {opacity: 0} 
+  to {opacity: 1}
+}
+@keyframes fade-out {
+  from {opacity: 1} 
+  to {opacity: 0}
+}
+
+.fade-in {
+  animation-duration: 1.5s;
+  animation-name: fade-in;
+  z-index: 2;
+  opacity: 1;
+}
+
+.fade-out {
+  animation-duration: 1.0s;
+  animation-name: fade-out;
+  z-index: 1;
+  opacity: 1;
+}
+
+.mySlides + .mySlides.fade-in {
+  display: block;
+  position: absolute;
+}
+
+.mySlides + .mySlides.fade-out {
+  display: block;
+  position: absolute;
+}
+	
+
+header {
+	position: fixed;
+	filter: drop-shadow( 0px 0px 4px rgba(255, 255, 255, .99));
+	z-index: 5;
+	color: white;
+	width: 100%;
+}
+
+.scrolled header {
+	backdrop-filter: brightness(0.6);
+	transition-property: all;
+	transition-duration: 900ms;
+}
+
+.logo, .hamburger-icon {
+	filter: invert(1);
+}
+
+/* The following magically centers the image when it overflows the screen */
+
+@media (max-width: 639px) {
+	.mySlides img {
+		position: absolute;
+		top: -9999px;
+		bottom: -9999px;
+		left: -9999px;
+		right: -9999px;
+		margin: auto;
+		height: 100vh;
+		width: auto;
+	}
+	
+	.mySlides {
+		width: 100vw;
+		height: 100vh;
+	}
+}
+
+@media (min-width: 1200px) {
+	.mySlides img {
+		position: absolute;
+		top: -9999px;
+		bottom: -9999px;
+		left: -9999px;
+		right: -9999px;
+		margin: auto;
+		width: 100vw;
+		height: auto;
+	}
+	
+	.mySlides {
+		width: 100vw;
+		height: 100vh;
+	}
+}

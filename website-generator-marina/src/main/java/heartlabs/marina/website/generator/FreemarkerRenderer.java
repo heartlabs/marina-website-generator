@@ -7,10 +7,7 @@ import java.io.OutputStreamWriter;
 import java.io.UncheckedIOException;
 import java.io.Writer;
 
-import freemarker.cache.ClassTemplateLoader;
 import freemarker.cache.FileTemplateLoader;
-import freemarker.cache.MultiTemplateLoader;
-import freemarker.cache.TemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -20,22 +17,13 @@ public class FreemarkerRenderer {
 	private final Configuration freemarkerConfig = new Configuration(Configuration.VERSION_2_3_28);
 
 	public FreemarkerRenderer(File templateFolder) {
-		ClassTemplateLoader classTemplateLoader = new ClassTemplateLoader(FreemarkerRenderer.class, "");
 
-		if (templateFolder.isDirectory()) {
-			FileTemplateLoader fileTemplateLoader;
-
-			try {
-				fileTemplateLoader = new FileTemplateLoader(templateFolder);
-			} catch (IOException e) {
-				throw new UncheckedIOException("Could not set Freemarker template folder", e);
-			}
-
-			MultiTemplateLoader multiTemplateLoader = new MultiTemplateLoader(new TemplateLoader[] { fileTemplateLoader, classTemplateLoader });
-			freemarkerConfig.setTemplateLoader(multiTemplateLoader);
-		} else {
-			freemarkerConfig.setTemplateLoader(classTemplateLoader);
+		try {
+			freemarkerConfig.setTemplateLoader(new FileTemplateLoader(templateFolder));
+		} catch (IOException e) {
+			throw new UncheckedIOException("Could not set Freemarker template folder", e);
 		}
+
 		// Got these settings from the tutorial:
 		// https://freemarker.apache.org/docs/pgui_quickstart_createconfiguration.html
 		freemarkerConfig.setDefaultEncoding("UTF-8");
