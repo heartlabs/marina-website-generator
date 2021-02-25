@@ -9,11 +9,12 @@ public class Page {
 	public String baseName;
 	public String title;
 	public File targetFile;
-	public List<String> images;
+	public List<Image> images;
 	public List<Page> subPages;
 	public boolean hidden;
 	public boolean about;
 	public boolean carousel;
+	public boolean crawlable = true;
 	public String rootDirPath = "";
 	
 	public Page(File targetFolder, String templateName) {
@@ -31,6 +32,27 @@ public class Page {
 		this.title = Character.toUpperCase(baseName.charAt(0)) + baseName.substring(1);
 		this.title = this.title.replaceAll("-", " ");
 	}
+	
+	public static class Image {
+		String src;
+		long size;
+		
+		public Image(String src, long size) {
+			super();
+			this.src = src;
+			this.size = size;
+		}
+
+		public long getSize() {
+			return size;
+		}
+		
+		public String getSrc() {
+			return src;
+		}
+		
+		
+	}
 
 	public String getTemplateName() {
 		return templateName;
@@ -44,9 +66,14 @@ public class Page {
 	public File getTargetFile() {
 		return targetFile;
 	}
-	public List<String> getImages() {
+	public List<Image> getImages() {
 		return images;
 	}
+	
+	public void addImage(String src, long size) {
+		images.add(new Image(src, size));
+	}
+	
 	public List<Page> getSubPages() {
 		return subPages;
 	}
@@ -61,5 +88,8 @@ public class Page {
 	}
 	public String getRootDir() {
 		return rootDirPath;
+	}
+	public boolean isCrawlable() {
+		return crawlable;
 	}
 }

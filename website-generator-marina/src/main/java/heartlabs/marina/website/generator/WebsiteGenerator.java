@@ -13,7 +13,6 @@ import java.util.List;
 
 public class WebsiteGenerator {
 	private static final String THUMBNAIL_JPG = "thumbnail.jpg";
-	private static List<String> pageNames = Arrays.asList("index", "weddings", "lovestory", "about me", "contacts");
 	
 	public static void main(String[] args) throws IOException {
 		File templateFolder = new File("src/main/resources/heartlabs/marina/website/templates");
@@ -29,7 +28,7 @@ public class WebsiteGenerator {
 		List<Page> pages = new ArrayList<>();
 		dataModel.pages = pages;
 		
-		pageNames.stream()
+		Configuration.pageConfig.keySet().stream()
 			.map(n -> new File(templateFolder, n + ".ftlh"))
 			.filter(File::exists)
 			.forEach(templateFile -> processRootTemplate(targetFolder, sourceImageFolder, pages, templateFile));
@@ -56,14 +55,8 @@ public class WebsiteGenerator {
 		String templateBaseName = page.baseName;
 		
 		System.out.println("Preparing page " + templateBaseName );
-		if (templateName.equals("about me.ftlh") || templateName.equals("contacts.ftlh")) {
-			page.about = true;
-		}
-		if (templateName.equals("index.ftlh")) {
-			page.hidden = true;
-			page.title = null;
-			page.carousel = true;
-		}
+		
+		Configuration.configure(page);
 		
 		File pageSourceImageFolder = new File(sourceImageFolder, templateBaseName);
 		if (pageSourceImageFolder.exists()) {
@@ -110,6 +103,7 @@ public class WebsiteGenerator {
 		
 		Page subPage = new Page(subPageTargetDir, subPageName, "subpage.ftlh");
 		subPage.hidden = true;
+		subPage.crawlable = false;
 		subPage.rootDirPath = "../../";
 		
 		Arrays.stream(images) //
@@ -120,7 +114,7 @@ public class WebsiteGenerator {
 	}
 	
 	private static void handlePageImage(File targetImageFolder, Page page, File sourceImageFile) {
-		page.images.add(sourceImageFile.getName());
+		page.addImage(sourceImageFile.getName(), sourceImageFile.length());
 		
 		Path imageTargetPath = new File(targetImageFolder, sourceImageFile.getName()).toPath();
 		
