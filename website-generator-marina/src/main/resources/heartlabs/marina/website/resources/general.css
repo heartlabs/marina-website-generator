@@ -14,6 +14,11 @@ body * {
 	box-sizing: border-box;
 }
 
+button {
+	padding: 0;
+    border: none;
+}
+
 a {
 	color: inherit;
 }
@@ -113,6 +118,25 @@ footer > section > h2 {
 	color: #909090;
 }
 
+.about img {
+	width: 200px;
+	margin-bottom: 5px;
+}
+
+.about p {
+    max-width: 70ch;
+    margin: auto;
+    color: #555;
+	padding: 15px;
+	font-size: 16px;
+	font-family: 'Courier Prime', monospace;
+	text-align: left;
+}
+
+.about em {
+    color: #333;
+}
+
 .social-bar{
 	text-align: center;
 }
@@ -150,6 +174,9 @@ footer > section > h2 {
 	max-height: 80vh;
 	margin-bottom: 10px;
 	padding: 5px;
+}
+
+.load-managed img {
 	transition-duration: 500ms;
 	transition-property: opacity;
 }
@@ -171,9 +198,7 @@ footer > section > h2 {
 
 .contacts .label {
 	font-size: 28px;
-    margin-bottom: 5px;
-    font-weight: 700;
-    font-family: 'Shadows Into Light';
+    font-family: 'Courier Prime', monospace;
 }
 
 .contacts .entry {
@@ -331,11 +356,6 @@ footer > section > h2 {
 		display: block;
 	}
 	
-	header {
-		position: relative;
-		padding-bottom: 30px;
-	}
-	
 }
 /* Style the active link (or home/logo) */
 .active {
@@ -359,7 +379,7 @@ footer > section > h2 {
   border-radius: 50%;
   border: 6px solid #fff;
   border-color: #aaa transparent #aaa transparent;
-  animation: lds-dual-ring 1.2s linear infinite;
+  animation: lds-dual-ring 1.2s linear infinite, fade-in 3s ease-in 1s 1 normal both;
 }
 
 @keyframes lds-dual-ring {
@@ -371,7 +391,16 @@ footer > section > h2 {
   }
 }
 
-#images .loading {
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.load-managed .loading {
 	display: block;
     width: 0;
 	height: 0;
